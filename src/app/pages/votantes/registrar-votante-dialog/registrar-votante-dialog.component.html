@@ -1,0 +1,109 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="votanteForm" class="votante-form">
+    <mat-form-field appearance="outline" class="full-width firstInput">
+      <mat-label>Número de identidad</mat-label>
+      <input
+        matInput
+        formControlName="identidad"
+        placeholder="Número de identidad"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre del votante</mat-label>
+      <input matInput formControlName="firstName" placeholder="Nombres" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Apellidos del votante</mat-label>
+      <input matInput formControlName="lastName" placeholder="Apellidos" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Fecha de Nacimiento</mat-label>
+      <input
+        matInput
+        [min]="minDate"
+        [max]="maxDate"
+        formControlName="birthDate"
+        [matDatepicker]="picker"
+      />
+
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker
+        #picker
+        startView="year"
+        [startAt]="startDate"
+      ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Número de telefono</mat-label>
+      <input
+        type="tel"
+        matInput
+        formControlName="phoneNumber"
+        placeholder="3155-34-56"
+      />
+    </mat-form-field>
+    <div [hidden]="!isLoading" class="pv">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <div *ngIf="listBoxesData$ | async as matSelectData">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Genero</mat-label>
+        <mat-select formControlName="gender" name="gender">
+          <mat-option
+            *ngFor="let gender of matSelectData[0]"
+            [value]="gender.id"
+          >
+            {{ gender.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Municipio</mat-label>
+        <mat-select formControlName="country" name="country">
+          <mat-option
+            *ngFor="let county of matSelectData[1]"
+            [value]="county.id"
+          >
+            {{ county.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Estado de identidad</mat-label>
+        <mat-select formControlName="identityStatus" name="identityStatus">
+          <mat-option
+            *ngFor="let idStatus of matSelectData[2]"
+            [value]="idStatus.id"
+          >
+            {{ idStatus.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button type="button" mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="this.votanteForm.invalid"
+    (click)="onSubmit()"
+
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>

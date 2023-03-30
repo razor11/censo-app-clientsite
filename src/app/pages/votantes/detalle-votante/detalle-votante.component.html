@@ -1,0 +1,114 @@
+<div class="main-container">
+  <div class="loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+
+  <form [formGroup]="vtForm">
+    <mat-accordion multi>
+      <mat-expansion-panel [expanded]="panel === 0" (opened)="setPanel(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Datos Generales </mat-panel-title>
+
+          <mat-panel-description>
+            <span class="spacer"></span>
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombres</mat-label>
+            <input matInput readonly type="text" formControlName="firstName" />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Apellidos</mat-label>
+            <input matInput readonly type="text" formControlName="lastName" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="birthDate"
+              [matDatepicker]="picker"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="listBoxesData$ | async as matSelectData">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Genero</mat-label>
+            <mat-select formControlName="gender" readonly name="gender">
+              <mat-option
+
+                *ngFor="let gender of matSelectData[0]"
+                [value]="gender.id"
+              >
+                {{ gender.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Número de telefono</mat-label>
+            <input readonly matInput type="tel" formControlName="phoneNumber" />
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="panel === 2" (opened)="setPanel(2)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Datos de identidad</mat-panel-title>
+          <mat-panel-description>
+            <span class="spacer"></span>
+            <mat-icon>map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Número de identidad</mat-label>
+            <input readonly matInput type="text" formControlName="identidad" />
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="listBoxesData$ | async as matSelectData">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Estado de identidad</mat-label>
+            <mat-select formControlName="identityStatus" name="identityStatus">
+              <mat-option
+                *ngFor="let idStatus of matSelectData[2]"
+                [value]="idStatus.id"
+              >
+                {{ idStatus.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Municipio</mat-label>
+            <mat-select formControlName="country" name="country">
+              <mat-option
+                *ngFor="let county of matSelectData[1]"
+                [value]="county.id"
+              >
+                {{ county.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</div>

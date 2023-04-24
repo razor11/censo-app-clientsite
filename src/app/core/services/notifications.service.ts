@@ -19,7 +19,7 @@ export class NotificationsService {
       // In the third, we send in the css class for the snack bar.
       this.snackBar.open(message, 'X', {
         panelClass: ['error'],
-        duration: 3000,
+        duration: 5000,
       });
     });
   }

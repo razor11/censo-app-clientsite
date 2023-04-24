@@ -74,7 +74,7 @@ export class VotantesService {
 
   getVotante(id: string): Observable<Votantes> {
     return this.http.get<any>(`${this.BASE_URL}/${API_URL}/${id}`).pipe(
-      delay(100),
+      delay(300),
       map((votante) => ({
         ...votante,
         gender: votante.gender.id,

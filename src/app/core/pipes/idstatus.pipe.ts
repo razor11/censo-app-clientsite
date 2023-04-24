@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
-import { ParametersService } from '../services/authentication/parameters-service/parameters.service';
+import { ParametersService } from '../services/parameters-service/parameters.service';
 import { Param } from '../models/params';
 
 @Pipe({

@@ -1,13 +1,4 @@
-import {
-  tap,
-  catchError,
-  EMPTY,
-  forkJoin,
-  shareReplay,
-  BehaviorSubject,
-  Observable,
-  map,
-} from 'rxjs';
+import { tap, catchError, EMPTY, forkJoin, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -38,6 +29,7 @@ export class ParametersService {
 
   countys$ = this.http.get<Param[]>(`${this.BASE_URL}/${COUNTY_API}`).pipe(
     tap(),
+
     catchError(() => EMPTY)
   );
 

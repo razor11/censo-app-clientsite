@@ -16,7 +16,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ParametersService } from 'src/app/core/services/authentication/parameters-service/parameters.service';
+import { ParametersService } from 'src/app/core/services/parameters-service/parameters.service';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { Router } from '@angular/router';
 

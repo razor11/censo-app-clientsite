@@ -3,7 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ParametersService } from 'src/app/core/services/authentication/parameters-service/parameters.service';
+import { ParametersService } from 'src/app/core/services/parameters-service/parameters.service';
 
 @Component({
   selector: 'app-main',

@@ -2,7 +2,7 @@ import { concatMap } from 'rxjs';
 import { VotantesService } from '../services/votantes.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Votante, Votantes } from 'src/app/core/models/votantes';
+import {  Votantes } from 'src/app/core/models/votantes';
 
 @Component({
   selector: 'app-detalle-votante',

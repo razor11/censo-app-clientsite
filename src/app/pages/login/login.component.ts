@@ -1,22 +1,13 @@
 import { AuthenticationService } from './../../core/services/authentication/authentication.service';
-import { MaterialModule } from './../../shared/material/material.module';
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
+  standalone: false,
   templateUrl: './login.component.html',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
@@ -66,8 +57,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([returnUrl]);
         },
         error: (e) => {
-          this.error = e;
-          console.log(e);
+          throw new Error(e);
         },
       });
   }

@@ -43,5 +43,18 @@ h1.example-app-name {
 }
 
 
+.is-active {
+  background-color: #E3F2FD;
+
+}
+
+.is-active .mdc-list-item__primary-text {
+  color: #1E88E5
+}
 
 
+
+
+.app-sidenav {
+  width: 240px;
+}

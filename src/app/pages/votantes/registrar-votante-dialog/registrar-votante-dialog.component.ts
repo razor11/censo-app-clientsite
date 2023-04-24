@@ -1,5 +1,5 @@
 import { first, tap } from 'rxjs';
-import { VotantesService } from './../votantes.service';
+import { VotantesService } from '../services/votantes.service';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -7,9 +7,14 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { MaterialModule } from './../../../shared/material/material.module';
+import { MaterialModule } from '../../../shared/material.module';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ParametersService } from 'src/app/core/services/authentication/parameters-service/parameters.service';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
@@ -18,10 +23,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-registrar-votante-dialog',
   standalone: true,
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule, FormsModule],
   templateUrl: './registrar-votante-dialog.component.html',
   styleUrls: ['./registrar-votante-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule, FormsModule],
 })
 export class RegistrarVotanteDialogComponent implements OnInit {
   public title = 'Registrar Votante';
@@ -45,7 +50,7 @@ export class RegistrarVotanteDialogComponent implements OnInit {
     private votantesService: VotantesService,
     private authenticationService: AuthenticationService,
     private parametersService: ParametersService,
-    private router: Router,
+
   ) {
     const currentYear = new Date().getFullYear();
     this.startDate = new Date(currentYear - 18, 0, 1);
@@ -58,7 +63,7 @@ export class RegistrarVotanteDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
   buildForm() {
@@ -75,23 +80,15 @@ export class RegistrarVotanteDialogComponent implements OnInit {
     });
   }
 
+  get genderValue() {
+    return this.votanteForm.get('gender')!.value;
+  }
+
   onSubmit() {
     if (this.votanteForm.invalid) {
       return;
     }
-    this.votantesService
-      .createVotante(this.votanteForm.value)
-      .pipe(first())
-      .subscribe({
-        next: (data) => {
-            this.newVotanteID = data.id;
-            this.router.navigate(['app/votantes/detalle-votante', this.newVotanteID]);
-        },
-        error: (e) => {},
-        complete: () => {
-           this.dialogRef.close();
-
-        }
-      });
+    this.votantesService.addVotante(this.votanteForm.value);
+    this.dialogRef.close(this.votanteForm.value);
   }
 }

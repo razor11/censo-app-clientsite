@@ -1,4 +1,13 @@
-import { tap, catchError, EMPTY, forkJoin, shareReplay } from 'rxjs';
+import {
+  tap,
+  catchError,
+  EMPTY,
+  forkJoin,
+  shareReplay,
+  BehaviorSubject,
+  Observable,
+  map,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,20 +25,19 @@ export class ParametersService {
   constructor(private http: HttpClient) {}
 
   genders$ = this.http.get<Param[]>(`${this.BASE_URL}/${GENDERS_API}`).pipe(
-    tap((data) => console.log(JSON.stringify(data))),
+    tap(),
 
     catchError(() => EMPTY)
   );
 
   idStatus$ = this.http.get<Param[]>(`${this.BASE_URL}/${IDSTATUS_API}`).pipe(
-    tap((data) => console.log(JSON.stringify(data))),
+    tap(),
 
     catchError(() => EMPTY)
   );
 
   countys$ = this.http.get<Param[]>(`${this.BASE_URL}/${COUNTY_API}`).pipe(
-    tap((data) => console.log(JSON.stringify(data))),
-
+    tap(),
     catchError(() => EMPTY)
   );
 

@@ -33,9 +33,10 @@
       [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56"
+      class="app-sidenav"
     >
       <mat-nav-list>
-     <!--    <mat-list-item
+        <!--    <mat-list-item
           routerLink="dashboard"
           routerLinkActive="active-list-item"
         >
@@ -43,8 +44,8 @@
           <div matListItemTitle>Inicio</div>
         </mat-list-item> -->
         <mat-list-item
-          routerLink="votantes/lista"
-          routerLinkActive="active-list-item"
+          routerLink="votantes"
+          [routerLinkActive]="['is-active']"
         >
           <mat-icon matListItemIcon>persons</mat-icon>
           <div matListItemTitle>Votantes</div>

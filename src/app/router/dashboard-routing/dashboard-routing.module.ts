@@ -1,11 +1,11 @@
-import { MainComponent } from './../../pages/main/main.component';
+import { MainComponent } from '../../main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'app/votantes/lista', pathMatch: 'full' },
+  { path: '', redirectTo: 'votantes', pathMatch: 'full' },
   {
-    path: 'app',
+    path: '',
     component: MainComponent,
     children: [
       {
@@ -17,24 +17,17 @@ const routes: Routes = [
       },
       {
         path: 'votantes',
-        children: [
-          {
-            path: 'lista',
-            loadComponent: () =>
-              import('../../pages/votantes/votantes-list.component').then(
-                (m) => m.VotantesComponent
-              ),
-          },
-          {
-            path: 'detalle-votante/:id',
-            loadComponent: () =>
-              import(
-                '../../pages/votantes/detalle-votante/detalle-votante.component'
-              ).then((m) => m.DetalleVotanteComponent),
-          },
-        ],
+        title:'Votantes',
+        loadChildren: () =>
+          import('../../pages/votantes/votantes.module').then(
+            (m) => m.VotantesModule
+          ),
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];
 

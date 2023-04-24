@@ -1,9 +1,50 @@
-<div class="main-container">
-  <div class="loading-shade" *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
+<div class="loading-shade" *ngIf="!votante">
+  <mat-spinner></mat-spinner>
+</div>
 
-  <form [formGroup]="vtForm">
+<div class="main-container" *ngIf="votante">
+  <mat-card>
+    <mat-card-header>
+      <mat-icon mat-card-avatar [svgIcon]="votante.gender | avatar"> </mat-icon>
+      <mat-card-title>
+        {{ votante.firstName }} {{ votante.lastName }}
+      </mat-card-title>
+      <mat-card-subtitle>
+         Fecha de Nacimiento: {{ votante.birthDate | date }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <br />
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <span matListItemTitle> Número de Identidad</span>
+          <span matListItemLine> {{ votante.identidad }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>Genero</span>
+          <span matListItemLine> {{ votante.gender | gender }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>Número de telefono</span>
+          <span matListItemLine> {{ votante.phoneNumber }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <span matListItemTitle>Municipio</span>
+          <span matListItemLine> {{ votante.country | municipios }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <span matListItemTitle>Estado de  identidad</span>
+          <span matListItemLine> {{ votante.identityStatus | IDstatus }}</span>
+        </mat-list-item>
+
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <!--  <form [formGroup]="vtForm">
     <mat-accordion multi>
       <mat-expansion-panel [expanded]="panel === 0" (opened)="setPanel(0)">
         <mat-expansion-panel-header>
@@ -110,5 +151,5 @@
         </div>
       </mat-expansion-panel>
     </mat-accordion>
-  </form>
+  </form> -->
 </div>

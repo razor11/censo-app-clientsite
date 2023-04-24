@@ -1,5 +1,5 @@
 import { AuthenticationService } from '../services/authentication/authentication.service';
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpEvent,
   HttpInterceptor,
@@ -8,7 +8,7 @@ import {
   HttpResponse,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, from, tap, throwError } from 'rxjs';
+import { Observable, catchError, retry, tap, throwError } from 'rxjs';
 
 @Injectable()
 export class errorInterceptor implements HttpInterceptor {
@@ -18,6 +18,7 @@ export class errorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
+      retry(1),
       tap((evt) => {
         let evtMessage: any;
         if (evt instanceof HttpResponse) {
@@ -26,17 +27,18 @@ export class errorInterceptor implements HttpInterceptor {
           }
         }
       }),
-      catchError((error) => {
+      catchError((error: HttpErrorResponse) => {
         let errorMessage: any;
-        if (error instanceof HttpErrorResponse) {
-          console.error('error status = ', error.status);
-          errorMessage = error.status;
           if (error.status === 401) {
+
             errorMessage = 'Unauthorized';
             this.authService.logout();
+            return throwError(() => errorMessage);
           }
-        }
-        return throwError(() => errorMessage);
+          else{
+            return throwError(() => error);
+          }
+
       })
     );
   }

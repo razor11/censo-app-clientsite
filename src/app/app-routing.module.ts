@@ -1,29 +1,31 @@
 import { LoginComponent } from './pages/login/login.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guards';
+import { PageTitleStrategyService } from './core/services/page-title-strategy.service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'app',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./router/dashboard-routing/dashboard-routing.module').then(
+      import('../app/router/dashboard-routing/dashboard-routing.module').then(
         (m) => m.DashboardRoutingModule
       ),
   },
 
   {
     path: 'login',
-    loadComponent: () =>
-      import('./pages/login/login.component').then((m) => m.LoginComponent),
+    component: LoginComponent,
+    title: 'Login'
   },
 
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: 'app' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [{ provide: TitleStrategy, useClass: PageTitleStrategyService }],
 })
 export class AppRoutingModule {}

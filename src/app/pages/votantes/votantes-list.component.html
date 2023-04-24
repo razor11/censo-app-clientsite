@@ -1,28 +1,25 @@
-<button class="pull-bottom-right" mat-fab (click)="openDialog()">
-  <mat-icon>add</mat-icon>
-</button>
-
+<app-add-button></app-add-button>
 <div class="mat-typography">
   <h2>Listado de Votantes</h2>
 </div>
-
+{{votantes$ | async }}
 <mat-form-field appearance="fill">
   <mat-label>Buscar votante</mat-label>
-  <input matInput placeholder="Ex. Jorge" (keyup)="applyFilter($event)" #input />
+  <input matInput (keyup)="applyFilter($event)" #input />
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" *ngIf="votantes">
+
   <table
     mat-table
-    *ngIf="votantes$"
     [dataSource]="dataSource"
     class="mat-elevation-z8"
   >
     <!-- Identidad Column -->
     <ng-container matColumnDef="Identidad">
       <th mat-header-cell *matHeaderCellDef>No</th>
-      <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
     <!-- Nombre Column -->
@@ -35,21 +32,16 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      [routerLink]="['/app/votantes/detalle-votante', row.id]"
+      [routerLink]="['/app/votantes/', row.id]"
     ></tr>
     <!--Nota data matching message --->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No se encontro ningun resultado para: "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4" *ngIf="input.value">
+        No se encontro ningun resultado para: "{{ input.value }}"
+      </td>
     </tr>
-
-
   </table>
 
-
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-  >
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
   </mat-paginator>
 </div>

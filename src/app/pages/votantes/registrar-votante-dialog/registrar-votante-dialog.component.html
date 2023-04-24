@@ -59,10 +59,18 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Genero</mat-label>
         <mat-select formControlName="gender" name="gender">
+          <mat-select-trigger>
+            <mat-icon
+              svgIcon="{{ genderValue === 1 ? 'svg-1' : 'svg-7' }}"
+            ></mat-icon>
+          </mat-select-trigger>
           <mat-option
             *ngFor="let gender of matSelectData[0]"
             [value]="gender.id"
           >
+            <mat-icon
+              svgIcon="{{ gender.id === 1 ? 'svg-1' : 'svg-7' }}"
+            ></mat-icon>
             {{ gender.description }}
           </mat-option>
         </mat-select>
@@ -102,7 +110,6 @@
     color="primary"
     [disabled]="this.votanteForm.invalid"
     (click)="onSubmit()"
-
   >
     Guardar
   </button>

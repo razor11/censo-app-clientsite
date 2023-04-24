@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
     this.mobileQuery.addListener(this._mobileQueryListener);
 
     iconRegestry.addSvgIconSet(
-      sanatizer.bypassSecurityTrustResourceUrl('assets/avatars.svg')
+      sanatizer.bypassSecurityTrustResourceUrl('../../assets/avatars.svg')
     );
 
   }

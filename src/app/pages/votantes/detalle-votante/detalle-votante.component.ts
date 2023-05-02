@@ -24,8 +24,10 @@ export class DetalleVotanteComponent implements OnInit {
       .pipe(
         concatMap((params) => this.votantesService.getVotante(params['id']))
       )
-      .subscribe((data) => {
-        this.votante = data;
+      .subscribe({
+        next: (data) =>  this.votante = data,
+        error: (e) =>  {throw new Error(e)}
+
       });
   }
 

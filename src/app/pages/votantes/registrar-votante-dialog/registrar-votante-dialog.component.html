@@ -9,16 +9,19 @@
         formControlName="identidad"
         placeholder="Número de identidad"
       />
+      <mat-error>{{ getErrorMessages(f["identidad"]) }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nombre del votante</mat-label>
       <input matInput formControlName="firstName" placeholder="Nombres" />
+      <mat-error>{{ getErrorMessages(f["firstName"]) }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Apellidos del votante</mat-label>
       <input matInput formControlName="lastName" placeholder="Apellidos" />
+      <mat-error>{{ getErrorMessages(f["lastName"]) }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
@@ -30,6 +33,7 @@
         formControlName="birthDate"
         [matDatepicker]="picker"
       />
+      <mat-error>{{ getErrorMessages(f["birthDate"]) }}</mat-error>
 
       <mat-datepicker-toggle
         matIconSuffix
@@ -50,6 +54,7 @@
         formControlName="phoneNumber"
         placeholder="3155-34-56"
       />
+      <mat-error>{{ getErrorMessages(f["phoneNumber"]) }}</mat-error>
     </mat-form-field>
     <div [hidden]="!isLoading" class="pv">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -65,7 +70,7 @@
             ></mat-icon>
           </mat-select-trigger>
           <mat-option
-            *ngFor="let gender of matSelectData[0]"
+            *ngFor="let gender of matSelectData.genders"
             [value]="gender.id"
           >
             <mat-icon
@@ -74,43 +79,88 @@
             {{ gender.description }}
           </mat-option>
         </mat-select>
+        <mat-error>{{ getErrorMessages(f["gender"]) }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Municipio</mat-label>
         <mat-select formControlName="country" name="country">
           <mat-option
-            *ngFor="let county of matSelectData[1]"
+            *ngFor="let county of matSelectData.county"
             [value]="county.id"
           >
             {{ county.description }}
           </mat-option>
         </mat-select>
+        <mat-error>{{ getErrorMessages(f["country"]) }}</mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Barrio</mat-label>
+        <mat-select formControlName="neighborhood" name="neighborhood">
+          <mat-option
+            *ngFor="let barrio of filterBarrios"
+            [value]="barrio.id"
+          >
+            {{ barrio.description }}
+          </mat-option>
+        </mat-select>
+        <mat-error>{{ getErrorMessages(f["neighborhood"]) }}</mat-error>
+      </mat-form-field>
+
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Estado de identidad</mat-label>
         <mat-select formControlName="identityStatus" name="identityStatus">
           <mat-option
-            *ngFor="let idStatus of matSelectData[2]"
+            *ngFor="let idStatus of matSelectData.idStatus"
             [value]="idStatus.id"
           >
             {{ idStatus.description }}
           </mat-option>
         </mat-select>
+        <mat-error>{{ getErrorMessages(f["identityStatus"]) }}</mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nesecidad Primaria</mat-label>
+        <mat-select formControlName="necesidadesPrimaria" name="necesidadesPrimaria">
+          <mat-option
+            *ngFor="let ncp1 of matSelectData.necesidadesP1"
+            [value]="ncp1.id"
+          >
+            {{ ncp1.description }}
+          </mat-option>
+        </mat-select>
+        <mat-error>{{ getErrorMessages(f["necesidadesPrimaria"]) }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nesecidad Especifica</mat-label>
+        <mat-select formControlName="necesidadesPrimariasEspecifica" name="necesidadesPrimariasEspecifica">
+          <mat-option
+            *ngFor="let nc of filterNesecidades"
+            [value]="nc.id"
+          >
+            {{ nc.description }}
+          </mat-option>
+        </mat-select>
+        <mat-error>{{ getErrorMessages(f["necesidadesPrimariasEspecifica"]) }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline"  class="full-width">
+        <mat-label>Descripcion Problematica</mat-label>
+        <textarea matInput formControlName="DescripcionProblematica" name="DescripcionProblematica"></textarea>
+      </mat-form-field>
+
+
     </div>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button type="button" mat-button (click)="onNoClick()">Cancelar</button>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="this.votanteForm.invalid"
-    (click)="onSubmit()"
-  >
+  <button mat-raised-button color="primary" (click)="onSubmit()">
     Guardar
   </button>
 </mat-dialog-actions>

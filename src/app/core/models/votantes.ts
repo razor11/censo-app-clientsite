@@ -9,6 +9,10 @@ export interface Votantes {
   birthDate: Date;
   phoneNumber: string;
   country: number;
+  neighborhood:number;
+  necesidadesPrimaria:number;
+  necesidadesPrimariasEspecifica:number;
+  DescripcionProblematica:number;
   identityStatus: number;
   responsable: string;
 }
@@ -16,3 +20,5 @@ export interface Votantes {
 export interface Votante{
 
 }
+
+

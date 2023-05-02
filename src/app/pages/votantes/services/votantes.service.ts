@@ -38,7 +38,7 @@ export class VotantesService {
   votanteInsertedAction$ = this.votanteInsertedSubject.asObservable();
 
   votantes$ = this.http.get<Votantes[]>(`${this.BASE_URL}/${API_URL}`).pipe(
-    tap((data) => console.log(JSON.stringify(data))),
+    // tap((data) => console.log(JSON.stringify(data))),
     catchError(() => EMPTY)
   );
 
@@ -80,8 +80,7 @@ export class VotantesService {
         gender: votante.gender.id,
         country: votante.country.id,
         identityStatus: votante.identityStatus.id,
-      })),
-      tap((data) => console.log(JSON.stringify(data)))
+      }))
     );
   }
 

@@ -23,7 +23,7 @@ export class VotantesComponent implements AfterViewInit {
   votantes$ = this.votantesService.votantesWithAdd$.pipe(
     map((votantes) => {
       this.votantes = votantes;
-      this.dataSource.data = this.votantes;
+      this.dataSource.data = votantes;
     }),
     catchError((err) => {
       return EMPTY;

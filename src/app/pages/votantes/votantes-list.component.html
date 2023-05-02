@@ -1,21 +1,20 @@
+<app-spinner *ngIf="votantes.length <= 0"></app-spinner>
 <app-add-button></app-add-button>
-<div class="mat-typography">
-  <h2>Listado de Votantes</h2>
-</div>
-{{votantes$ | async }}
-<mat-form-field appearance="fill">
-  <mat-label>Buscar votante</mat-label>
-  <input matInput (keyup)="applyFilter($event)" #input />
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
 
-<div class="mat-elevation-z8" *ngIf="votantes">
+{{ votantes$ | async }}
 
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="mat-elevation-z8"
-  >
+<div *ngIf="votantes.length > 0">
+  <div class="mat-typography">
+    <h2>Listado de Votantes</h2>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Buscar votante</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Identidad Column -->
     <ng-container matColumnDef="Identidad">
       <th mat-header-cell *matHeaderCellDef>No</th>
@@ -34,7 +33,7 @@
       *matRowDef="let row; columns: displayedColumns"
       [routerLink]="['/app/votantes/', row.id]"
     ></tr>
-    <!--Nota data matching message --->
+    <!--Not data matching message --->
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="4" *ngIf="input.value">
         No se encontro ningun resultado para: "{{ input.value }}"

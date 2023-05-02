@@ -10,7 +10,7 @@ export class IDstatusPipe implements PipeTransform {
   status!: Param[];
 
   statuses$ = this.paramService.listBoxParams$.subscribe((data) => {
-    this.status = data[2];
+    this.status = data.idStatus;
   });
 
   transform(statusId: number): string {

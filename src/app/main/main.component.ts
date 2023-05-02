@@ -31,12 +31,9 @@ export class MainComponent implements OnInit {
     iconRegestry.addSvgIconSet(
       sanatizer.bypassSecurityTrustResourceUrl('../../assets/avatars.svg')
     );
-
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

@@ -10,7 +10,7 @@ export class MunicipiosPipe implements PipeTransform {
   municipios!: Param[];
 
   municipios$ = this.paramService.listBoxParams$.subscribe((data) => {
-    this.municipios = data[1];
+    this.municipios = data.county;
   });
 
   transform(municipioId: number): string {

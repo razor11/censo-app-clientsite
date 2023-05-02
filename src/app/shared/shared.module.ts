@@ -4,19 +4,24 @@ import { GenderPipe } from 'src/app/core/pipes/gender.pipe';
 import { AvatarPipe } from 'src/app/core/pipes/avatar.pipe';
 import { MunicipiosPipe } from 'src/app/core/pipes/municipios.pipe';
 import { IDstatusPipe } from 'src/app/core/pipes/idstatus.pipe';
+import { SpinnerComponent } from '../components/spinner/spinner.component';
+import { MaterialModule } from './material.module';
 
 
 
 @NgModule({
-  declarations: [GenderPipe, AvatarPipe, MunicipiosPipe, IDstatusPipe],
+  declarations: [GenderPipe, AvatarPipe, MunicipiosPipe, IDstatusPipe, SpinnerComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   exports: [
     GenderPipe,
+    SpinnerComponent,
     AvatarPipe,
     MunicipiosPipe,
-    IDstatusPipe
+    IDstatusPipe,
+    MaterialModule
   ]
 })
-export class CustomPipesModule { }
+export class SharedModule { }

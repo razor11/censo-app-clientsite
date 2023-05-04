@@ -1,5 +1,5 @@
 export const ERROR_MESSAGES = {
   required: 'Este campo es requerido',
-  minlength: 'The entered value is too short',
-  maxlength: 'The entered value is too long',
+  minlength: 'El valor ingresado es muy corto',
+  maxlength: 'El valor ingresado es muy largo',
 }

@@ -31,12 +31,12 @@ export class errorInterceptor implements HttpInterceptor {
         let errorMessage: any;
           if (error.status === 401) {
 
-            errorMessage = 'Unauthorized';
+            errorMessage = 'Credenciales incorrectas';
             this.authService.logout();
             return throwError(() => errorMessage);
           }
           else{
-            return throwError(() => error);
+            return throwError(() => error.message);
           }
 
       })

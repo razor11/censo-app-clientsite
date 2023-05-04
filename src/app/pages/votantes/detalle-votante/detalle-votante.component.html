@@ -30,13 +30,35 @@
 
         <mat-list-item>
           <span matListItemTitle>Municipio</span>
-          <span matListItemLine> {{ votante.country | municipios }}</span>
+          <span matListItemLine> {{ votante.country | municipios | titlecase  }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <span matListItemTitle>Barrio</span>
+          <span matListItemLine> {{ votante.neighborhood.description }}</span>
         </mat-list-item>
 
         <mat-list-item>
           <span matListItemTitle>Estado de identidad</span>
-          <span matListItemLine> {{ votante.identityStatus | IDstatus }}</span>
+          <span matListItemLine > {{ votante.identityStatus | IDstatus | titlecase}}</span>
         </mat-list-item>
+
+        <mat-list-item>
+          <span matListItemTitle>Necesidad Primaria</span>
+          <span matListItemLine> {{ votante.necesidadesPrimaria.description }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <span matListItemTitle>Problematica</span>
+          <span matListItemLine> {{ votante.necesidadesPrimariasEspecifica.description }}</span>
+        </mat-list-item>
+
+
+        <mat-list-item>
+          <span matListItemTitle>Descripcion de Problematica</span>
+          <span matListItemLine> {{ votante.DescripcionProblematica }}</span>
+        </mat-list-item>
+
       </mat-list>
     </mat-card-content>
   </mat-card>

@@ -30,7 +30,7 @@ import { ERROR_MESSAGES } from 'src/app/core/error-messages';
   imports: [CommonModule, MaterialModule, ReactiveFormsModule, FormsModule],
 })
 export class RegistrarVotanteDialogComponent implements OnInit {
-  public title = 'Registrar Votante';
+  public title = 'Registrar Nuevo Votante';
   votanteForm!: FormGroup;
   newVotanteID!: string;
   barrios!: any[];
@@ -91,12 +91,12 @@ export class RegistrarVotanteDialogComponent implements OnInit {
 
   buildForm() {
     this.votanteForm = this.fb.group({
-      identidad: ['', Validators.required],
+      identidad: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       lastName: ['', Validators.required],
       gender: [, Validators.required],
       birthDate: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(8)]],
       country: ['', Validators.required],
       neighborhood: ['', Validators.required],
       necesidadesPrimaria: [''],

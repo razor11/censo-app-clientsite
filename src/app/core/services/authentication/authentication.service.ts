@@ -47,7 +47,7 @@ export class AuthenticationService {
     }
   }
 
-  login(userName: string, pwd: string) {
+  login(userName: string, pwd: string): Observable<any> {
     const credentials = {
       username: userName,
       password: pwd,

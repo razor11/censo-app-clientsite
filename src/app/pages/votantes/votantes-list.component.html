@@ -1,9 +1,11 @@
-<app-spinner *ngIf="votantes.length <= 0"></app-spinner>
+<app-spinner *ngIf="votantes.length <=0"></app-spinner>
 <app-add-button></app-add-button>
 
-{{ votantes$ | async }}
+{{votantes$ | async }}
 
-<div *ngIf="votantes.length > 0">
+
+<div>
+
   <div class="mat-typography">
     <h2>Listado de Votantes</h2>
   </div>
@@ -14,7 +16,11 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
     <!-- Identidad Column -->
     <ng-container matColumnDef="Identidad">
       <th mat-header-cell *matHeaderCellDef>No</th>
@@ -40,6 +46,8 @@
       </td>
     </tr>
   </table>
+
+
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
   </mat-paginator>

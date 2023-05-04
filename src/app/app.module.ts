@@ -19,8 +19,7 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
 import { GlobalErrorHandler } from './core/global-error-handler';
 import { LoginComponent } from './pages/login/login.component';
-
-
+import { StorageService } from './core/services/storage.service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -46,6 +45,7 @@ export function tokenGetter() {
   ],
   providers: [
     AuthenticationService,
+    StorageService,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: errorInterceptor, multi: true },

@@ -2,7 +2,7 @@ import { concatMap } from 'rxjs';
 import { VotantesService } from '../services/votantes.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import {  Votantes } from 'src/app/core/models/votantes';
+import {  Votante, Votantes } from 'src/app/core/models/votantes';
 
 @Component({
   selector: 'app-detalle-votante',
@@ -11,7 +11,7 @@ import {  Votantes } from 'src/app/core/models/votantes';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DetalleVotanteComponent implements OnInit {
-  votante!: Votantes;
+  votante!: Votante;
 
 
   constructor(
@@ -25,7 +25,10 @@ export class DetalleVotanteComponent implements OnInit {
         concatMap((params) => this.votantesService.getVotante(params['id']))
       )
       .subscribe({
-        next: (data) =>  this.votante = data,
+        next: (data) => { this.votante = data,
+          console.log(data);
+        }
+          ,
         error: (e) =>  {throw new Error(e)}
 
       });

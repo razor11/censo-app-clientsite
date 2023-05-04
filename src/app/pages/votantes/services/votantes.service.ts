@@ -1,4 +1,4 @@
-import { Votantes } from '../../../core/models/votantes';
+import { Votante, Votantes } from '../../../core/models/votantes';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
@@ -72,7 +72,7 @@ export class VotantesService {
 
   // get single votante by id
 
-  getVotante(id: string): Observable<Votantes> {
+  getVotante(id: string): Observable<Votante> {
     return this.http.get<any>(`${this.BASE_URL}/${API_URL}/${id}`).pipe(
       delay(300),
       map((votante) => ({

@@ -1,4 +1,4 @@
-import { Observable, concatMap, tap } from 'rxjs';
+import { concatMap, tap } from 'rxjs';
 import { VotantesService } from '../services/votantes.service';
 import {
   FormsModule,
@@ -18,8 +18,8 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ParametersService } from 'src/app/core/services/parameters-service/parameters.service';
-import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { ERROR_MESSAGES } from 'src/app/core/error-messages';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-registrar-votante-dialog',
@@ -51,17 +51,18 @@ export class RegistrarVotanteDialogComponent implements OnInit {
     tap(() => (this.isLoading = false))
   );
 
-  userName = this.authenticationService.getUserNameValue;
+  userName = this.storageService.getUserInfo();
 
   constructor(
     public dialogRef: MatDialogRef<RegistrarVotanteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private votantesService: VotantesService,
-    private authenticationService: AuthenticationService,
+    private storageService: StorageService,
     private parametersService: ParametersService
   ) {
     const currentYear = new Date().getFullYear();
+    console.log(this.userName);
     this.startDate = new Date(currentYear - 18, 0, 1);
     this.minDate = new Date(currentYear - 70, 0, 1);
     this.maxDate = new Date(currentYear + -16, 0, 0);
@@ -91,12 +92,22 @@ export class RegistrarVotanteDialogComponent implements OnInit {
 
   buildForm() {
     this.votanteForm = this.fb.group({
-      identidad: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+      identidad: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(13),
+          Validators.maxLength(13),
+        ],
+      ],
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       lastName: ['', Validators.required],
       gender: [, Validators.required],
       birthDate: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(8)]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.maxLength(8), Validators.minLength(8)],
+      ],
       country: ['', Validators.required],
       neighborhood: ['', Validators.required],
       necesidadesPrimaria: [''],

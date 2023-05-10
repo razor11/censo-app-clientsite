@@ -8,18 +8,18 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from '../services/authentication/authentication.service';
+import { StorageService } from '../services/storage.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor( private storageService: StorageService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const currentUser = this.authenticationService.currentUserValue;
-    const isLoggedIn = currentUser && currentUser.access_token;
+    const currentUser = this.storageService.getUser();
+    const isLoggedIn = this.storageService.isLoggedIn();
     const isApiUrl = request.url.startsWith(environment.APIURL);
     const apiAuth = request.url.startsWith(
       `${environment.APIURL}/api/V1/authenticate`

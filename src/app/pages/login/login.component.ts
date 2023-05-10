@@ -14,12 +14,13 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   error = '';
   submitted = false;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
   ) {
     if (this.authenticationService.tokenAccess) {
       this.router.navigate(['/']);
@@ -44,7 +45,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.isLoading = true;
     if (this.loginForm.invalid) {
+      this.isLoading = false;
       return;
     }
 
@@ -54,6 +57,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: () => {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.isLoading = false;
           this.router.navigate([returnUrl]);
         },
         error: (e) => {
